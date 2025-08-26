@@ -1,0 +1,240 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campanha Digital</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0d1117;
+      color: #fff;
+      overflow: hidden;
+    }
+    .slide {
+      display: none;
+      height: 100vh;
+      width: 100vw;
+      padding: 20px;
+      text-align: center;
+      box-sizing: border-box;
+    }
+    .active {
+      display: block;
+      animation: fadeIn 0.7s;
+    }
+    h1, h2 {
+      color: #00ffcc;
+    }
+    .btn-container {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+    button {
+      background: #00ffcc;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #00ccaa;
+    }
+    img {
+      max-width: 80%;
+      max-height: 250px;
+      margin-top: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    .quiz {
+      margin-top: 20px;
+    }
+    .quiz button {
+      display: block;
+      margin: 10px auto;
+      width: 80%;
+      background: #1f6feb;
+      color: #fff;
+    }
+    .quiz button:hover {
+      background: #165ec9;
+    }
+    #feedback {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #ffcc00;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="slide active">
+    <h1>📢 Campanha Digital</h1>
+    <p>Como a tecnologia pode chegar a pessoas sem acesso<br>
+    e a conscientização do uso das redes sociais</p>
+    <img src="https://img.freepik.com/free-vector/digital-marketing-campaign_23-2148378338.jpg" alt="Campanha Digital">
+  </div>
+
+  <div class="slide">
+    <h2>🌐 Inclusão Digital</h2>
+    <p>Levar tecnologia a comunidades carentes através de<br>
+    <strong>telecentros, projetos sociais, internet comunitária</strong> e doações de equipamentos.</p>
+    <img src="https://img.freepik.com/free-vector/digital-devices-concept-illustration_114360-4810.jpg" alt="Inclusão Digital">
+  </div>
+
+  <div class="slide">
+    <h2>📱 Redes Sociais Conscientes</h2>
+    <p>Ensinar sobre <strong>uso responsável</strong>, combate às fake news<br>
+    e incentivo ao <strong>bem-estar digital</strong>.</p>
+    <img src="https://img.freepik.com/free-vector/social-media-addiction-concept_52683-38757.jpg" alt="Redes Sociais Conscientes">
+  </div>
+
+  <div class="slide">
+    <h2>🤝 Nosso Papel</h2>
+    <p>Educar, compartilhar informação verdadeira e apoiar iniciativas que diminuem o abismo digital.</p>
+    <img src="https://img.freepik.com/free-vector/community-concept-illustration_114360-2589.jpg" alt="Nosso Papel">
+  </div>
+
+  <!-- Slide com Quiz -->
+  <div class="slide">
+    <h2>📝 Quiz Rápido</h2>
+    <p id="question">Pergunta aparecerá aqui</p>
+    <div class="quiz" id="quiz-options"></div>
+    <p id="feedback"></p>
+  </div>
+
+  <div class="btn-container">
+    <button onclick="prevSlide()">⬅ Anterior</button>
+    <button onclick="nextSlide()">Próximo ➡</button>
+  </div>
+
+  <script>
+    let current = 0;
+    const slides = document.querySelectorAll('.slide');
+    let score = 0;
+    let currentQuestion = 0;
+
+    const quizData = [
+      {
+        question: "Qual é a principal vantagem da inclusão digital?",
+        options: [
+          { text: "A) Aumentar o uso excessivo das redes", correct: false },
+          { text: "B) Garantir acesso à informação e oportunidades", correct: true },
+          { text: "C) Isolar pessoas sem internet", correct: false }
+        ],
+        explanation: "A inclusão digital permite que mais pessoas tenham acesso à informação, educação e oportunidades."
+      },
+      {
+        question: "O que é essencial para o uso consciente das redes sociais?",
+        options: [
+          { text: "A) Compartilhar sem checar a fonte", correct: false },
+          { text: "B) Combater fake news", correct: true },
+          { text: "C) Passar 12h por dia online", correct: false }
+        ],
+        explanation: "Checar a fonte e combater fake news é fundamental para manter a internet saudável."
+      },
+      {
+        question: "Qual tecnologia ajuda comunidades carentes a ter internet?",
+        options: [
+          { text: "A) Telecentros e internet comunitária", correct: true },
+          { text: "B) Jogos online", correct: false },
+          { text: "C) Apenas computadores caros", correct: false }
+        ],
+        explanation: "Projetos de telecentros e internet comunitária oferecem acesso acessível à tecnologia."
+      },
+      {
+        question: "O que devemos evitar nas redes sociais?",
+        options: [
+          { text: "A) Uso responsável e ético", correct: false },
+          { text: "B) Fake news e discursos de ódio", correct: true },
+          { text: "C) Compartilhar conhecimento", correct: false }
+        ],
+        explanation: "Devemos evitar fake news e discursos de ódio para manter um ambiente saudável online."
+      },
+      {
+        question: "Qual é o nosso papel na inclusão digital?",
+        options: [
+          { text: "A) Educar e apoiar iniciativas", correct: true },
+          { text: "B) Ignorar comunidades carentes", correct: false },
+          { text: "C) Usar apenas para diversão", correct: false }
+        ],
+        explanation: "Educar, apoiar projetos e compartilhar conhecimento são atitudes que fortalecem a inclusão digital."
+      }
+    ];
+
+    function showSlide(index) {
+      slides.forEach((s, i) => s.classList.toggle('active', i === index));
+      if (index === slides.length - 1) {
+        loadQuestion();
+      }
+    }
+
+    function nextSlide() {
+      current = (current + 1) % slides.length;
+      showSlide(current);
+    }
+
+    function prevSlide() {
+      current = (current - 1 + slides.length) % slides.length;
+      showSlide(current);
+    }
+
+    function loadQuestion() {
+      const questionEl = document.getElementById("question");
+      const quizOptions = document.getElementById("quiz-options");
+      const feedback = document.getElementById("feedback");
+
+      if (currentQuestion < quizData.length) {
+        const q = quizData[currentQuestion];
+        questionEl.innerText = q.question;
+        quizOptions.innerHTML = "";
+        feedback.innerText = "";
+
+        q.options.forEach(opt => {
+          const btn = document.createElement("button");
+          btn.innerText = opt.text;
+          btn.onclick = () => checkAnswer(opt.correct, q.explanation);
+          quizOptions.appendChild(btn);
+        });
+      } else {
+        questionEl.innerText = "🎉 Quiz finalizado!";
+        quizOptions.innerHTML = "";
+        feedback.innerText = `Você acertou ${score} de ${quizData.length} perguntas.`;
+        feedback.style.color = "#00ff88";
+      }
+    }
+
+    function checkAnswer(correct, explanation) {
+      const feedback = document.getElementById("feedback");
+      if (correct) {
+        feedback.innerText = "✅ Correto! " + explanation;
+        feedback.style.color = "#00ff88";
+        score++;
+      } else {
+        feedback.innerText = "❌ Errado! " + explanation;
+        feedback.style.color = "#ff4444";
+      }
+      currentQuestion++;
+      setTimeout(loadQuestion, 2500); // espera 2,5s antes da próxima
+    }
+
+    showSlide(current);
+  </script>
+</body>
+</html>
+
+
+---
+
